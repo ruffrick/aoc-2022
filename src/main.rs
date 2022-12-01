@@ -1,16 +1,38 @@
+use std::collections::HashMap;
+
+use clap::Parser;
 use rust_embed::RustEmbed;
 
 mod day1;
+
+#[derive(Parser)]
+struct Args {
+    #[arg(short, long)]
+    day: Option<u8>,
+}
 
 #[derive(RustEmbed)]
 #[folder = "input/"]
 struct Input;
 
 fn main() {
-    println!("Advent of Code 2022\n");
+    let args = Args::parse();
 
-    let day1 = day1::solve();
-    println!("Day 1\n\tPart One - {}\n\tPart Two - {}\n", day1.0, day1.1);
+    let mut days = HashMap::new();
+    days.insert(1, day1::solve);
+
+    println!("Advent of Code 2022\n");
+    match args.day {
+        Some(day) => match days.get(&day) {
+            Some(solve) => solve(),
+            None => println!("Unknown day"),
+        },
+        None => {
+            for solve in days.values() {
+                solve();
+            }
+        }
+    }
 }
 
 fn input(file_path: &str) -> String {
