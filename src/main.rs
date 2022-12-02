@@ -1,9 +1,10 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use clap::Parser;
 use rust_embed::RustEmbed;
 
 mod day1;
+mod day2;
 
 #[derive(Parser)]
 struct Args {
@@ -18,8 +19,9 @@ struct Input;
 fn main() {
     let args = Args::parse();
 
-    let mut days = HashMap::new();
+    let mut days: BTreeMap<u8, fn()> = BTreeMap::new();
     days.insert(1, day1::solve);
+    days.insert(2, day2::solve);
 
     println!("Advent of Code 2022\n");
     match args.day {
