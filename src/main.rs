@@ -8,6 +8,7 @@ use rust_embed::RustEmbed;
 mod day1;
 mod day2;
 mod day3;
+mod day4;
 
 #[derive(Parser)]
 struct Args {
@@ -26,6 +27,7 @@ fn main() {
     days.insert(1, day1::solve);
     days.insert(2, day2::solve);
     days.insert(3, day3::solve);
+    days.insert(4, day4::solve);
 
     println!("Advent of Code 2022\n");
     match args.day {
