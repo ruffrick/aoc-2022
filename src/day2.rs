@@ -98,10 +98,7 @@ pub fn solve() {
         })
         .sum();
 
-    println!(
-        "Day 2\n\tPart One - {}\n\tPart Two - {}\n",
-        part_one, part_two
-    );
+    println!("Day 2\n\tPart One - {part_one}\n\tPart Two - {part_two}\n");
 }
 
 fn result(p1: HandShape, p2: HandShape) -> u32 {

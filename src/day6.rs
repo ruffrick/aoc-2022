@@ -7,10 +7,7 @@ pub fn solve() {
     let part_one = find_marker(input.chars(), 4);
     let part_two = find_marker(input.chars(), 14);
 
-    println!(
-        "Day 6\n\tPart One - {}\n\tPart Two - {}\n",
-        part_one, part_two
-    );
+    println!("Day 6\n\tPart One - {part_one}\n\tPart Two - {part_two}\n");
 }
 
 fn find_marker(input: Chars, len: usize) -> usize {
@@ -26,5 +23,5 @@ fn find_marker(input: Chars, len: usize) -> usize {
             return i + 1;
         }
     }
-    return 0;
+    0
 }

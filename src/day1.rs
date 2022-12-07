@@ -5,8 +5,8 @@ pub fn solve() {
         .collect();
     calories.sort();
 
-    let most = *calories.last().unwrap();
-    let top_three: u32 = calories.iter().rev().take(3).sum();
+    let part_one = *calories.last().unwrap();
+    let part_two: u32 = calories.iter().rev().take(3).sum();
 
-    println!("Day 1\n\tPart One - {}\n\tPart Two - {}\n", most, top_three);
+    println!("Day 1\n\tPart One - {part_one}\n\tPart Two - {part_two}\n");
 }

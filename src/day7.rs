@@ -40,8 +40,8 @@ pub fn solve() {
 }
 
 fn add(dirs: &mut HashMap<String, u32>, path: &String, size: u32) {
-    if dirs.contains_key(path) {
-        *dirs.get_mut(path).unwrap() += size;
+    if let Some(total) = dirs.get_mut(path) {
+        *total += size;
     } else {
         dirs.insert(path.clone(), size);
     }

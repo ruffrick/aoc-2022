@@ -46,8 +46,5 @@ pub fn solve() {
     let part_one: String = part_one.iter().map(|stack| stack.last().unwrap()).collect();
     let part_two: String = part_two.iter().map(|stack| stack.last().unwrap()).collect();
 
-    println!(
-        "Day 5\n\tPart One - {}\n\tPart Two - {}\n",
-        part_one, part_two
-    );
+    println!("Day 5\n\tPart One - {part_one}\n\tPart Two - {part_two}\n");
 }
