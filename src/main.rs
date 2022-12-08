@@ -12,6 +12,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
 #[derive(Parser)]
 struct Args {
@@ -34,6 +35,7 @@ fn main() {
     days.insert(5, day5::solve);
     days.insert(6, day6::solve);
     days.insert(7, day7::solve);
+    days.insert(8, day8::solve);
 
     println!("Advent of Code 2022\n");
     match args.day {
