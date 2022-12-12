@@ -1,5 +1,5 @@
 pub fn solve() {
-    let trees: Vec<Vec<u32>> = crate::input("day8.txt")
+    let trees: Vec<Vec<u32>> = crate::input("day08.txt")
         .lines()
         .map(|line| line.chars().map(|c| c.to_digit(10).unwrap()).collect())
         .collect();

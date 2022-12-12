@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 pub fn solve() {
-    let input = crate::input("day7.txt");
+    let input = crate::input("day07.txt");
 
     let mut dirs: HashMap<String, u32> = HashMap::new();
     let mut path: Vec<&str> = Vec::new();

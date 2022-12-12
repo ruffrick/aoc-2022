@@ -28,7 +28,7 @@ impl TryFrom<&str> for Dir {
 }
 
 pub fn solve() {
-    let input = crate::input("day9.txt");
+    let input = crate::input("day09.txt");
 
     let mut visited_one: HashSet<Point> = HashSet::new();
     let mut visited_two: HashSet<Point> = HashSet::new();

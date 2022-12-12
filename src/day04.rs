@@ -1,7 +1,7 @@
 pub fn solve() {
     let mut part_one: u32 = 0;
     let mut part_two: u32 = 0;
-    for line in crate::input("day4.txt").lines() {
+    for line in crate::input("day04.txt").lines() {
         let ranges: Vec<Vec<u32>> = line
             .split(',')
             .map(|range| {

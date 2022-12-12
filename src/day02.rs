@@ -56,7 +56,7 @@ impl TryFrom<char> for Outcome {
 }
 
 pub fn solve() {
-    let part_one: u32 = crate::input("day2.txt")
+    let part_one: u32 = crate::input("day02.txt")
         .lines()
         .map(|line| {
             let chars: Vec<&str> = line.split_whitespace().collect();
@@ -71,7 +71,7 @@ pub fn solve() {
         })
         .sum();
 
-    let part_two: u32 = crate::input("day2.txt")
+    let part_two: u32 = crate::input("day02.txt")
         .lines()
         .map(|line| {
             let chars: Vec<&str> = line.split_whitespace().collect();

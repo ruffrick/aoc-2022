@@ -2,7 +2,7 @@ use std::collections::HashSet;
 use std::str::Chars;
 
 pub fn solve() {
-    let input = crate::input("day6.txt");
+    let input = crate::input("day06.txt");
 
     let part_one = find_marker(input.chars(), 4);
     let part_two = find_marker(input.chars(), 14);

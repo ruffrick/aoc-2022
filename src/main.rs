@@ -6,16 +6,16 @@ use std::collections::BTreeMap;
 use clap::Parser;
 use rust_embed::RustEmbed;
 
-mod day1;
+mod day01;
+mod day02;
+mod day03;
+mod day04;
+mod day05;
+mod day06;
+mod day07;
+mod day08;
+mod day09;
 mod day10;
-mod day2;
-mod day3;
-mod day4;
-mod day5;
-mod day6;
-mod day7;
-mod day8;
-mod day9;
 
 #[derive(Parser)]
 struct Args {
@@ -31,15 +31,15 @@ fn main() {
     let args = Args::parse();
 
     let mut days: BTreeMap<u8, fn()> = BTreeMap::new();
-    days.insert(1, day1::solve);
-    days.insert(2, day2::solve);
-    days.insert(3, day3::solve);
-    days.insert(4, day4::solve);
-    days.insert(5, day5::solve);
-    days.insert(6, day6::solve);
-    days.insert(7, day7::solve);
-    days.insert(8, day8::solve);
-    days.insert(9, day9::solve);
+    days.insert(1, day01::solve);
+    days.insert(2, day02::solve);
+    days.insert(3, day03::solve);
+    days.insert(4, day04::solve);
+    days.insert(5, day05::solve);
+    days.insert(6, day06::solve);
+    days.insert(7, day07::solve);
+    days.insert(8, day08::solve);
+    days.insert(9, day09::solve);
     days.insert(10, day10::solve);
 
     println!("Advent of Code 2022\n");

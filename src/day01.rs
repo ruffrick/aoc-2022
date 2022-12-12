@@ -1,5 +1,5 @@
 pub fn solve() {
-    let mut calories: Vec<u32> = crate::input("day1.txt")
+    let mut calories: Vec<u32> = crate::input("day01.txt")
         .split("\n\n")
         .map(|lines| lines.lines().map(|line| line.parse::<u32>().unwrap()).sum())
         .collect();

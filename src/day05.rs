@@ -1,5 +1,5 @@
 pub fn solve() {
-    let input = crate::input("day5.txt");
+    let input = crate::input("day05.txt");
 
     let parts: Vec<&str> = input.split("\n\n").collect();
     let mut stacks: Vec<Vec<char>> = Vec::new();

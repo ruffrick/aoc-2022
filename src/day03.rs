@@ -1,5 +1,5 @@
 pub fn solve() {
-    let part_one: u32 = crate::input("day3.txt")
+    let part_one: u32 = crate::input("day03.txt")
         .lines()
         .map(|line| {
             let (first, second) = line.split_at(line.len() / 2);
@@ -8,7 +8,7 @@ pub fn solve() {
         })
         .sum();
 
-    let part_two: u32 = crate::input("day3.txt")
+    let part_two: u32 = crate::input("day03.txt")
         .lines()
         .array_chunks()
         .map(|[first, second, third]| {
