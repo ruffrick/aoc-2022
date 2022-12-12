@@ -7,6 +7,7 @@ use clap::Parser;
 use rust_embed::RustEmbed;
 
 mod day1;
+mod day10;
 mod day2;
 mod day3;
 mod day4;
@@ -39,6 +40,7 @@ fn main() {
     days.insert(7, day7::solve);
     days.insert(8, day8::solve);
     days.insert(9, day9::solve);
+    days.insert(10, day10::solve);
 
     println!("Advent of Code 2022\n");
     match args.day {
