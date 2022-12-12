@@ -1,4 +1,5 @@
 #![feature(iter_array_chunks)]
+#![feature(get_many_mut)]
 
 use std::collections::BTreeMap;
 
@@ -13,6 +14,7 @@ mod day5;
 mod day6;
 mod day7;
 mod day8;
+mod day9;
 
 #[derive(Parser)]
 struct Args {
@@ -36,6 +38,7 @@ fn main() {
     days.insert(6, day6::solve);
     days.insert(7, day7::solve);
     days.insert(8, day8::solve);
+    days.insert(9, day9::solve);
 
     println!("Advent of Code 2022\n");
     match args.day {
