@@ -21,7 +21,7 @@ pub fn solve() {
         }
     }
 
-    println!("Day 9\n\tPart One - {part_one}\n\tPart Two - \n{part_two}\n",);
+    println!("Day 10\n\tPart One - {part_one}\n\tPart Two - \n{part_two}\n",);
 }
 
 fn next_cycle(cycle: &mut i32, x: &i32, part_one: &mut i32, part_two: &mut String) {
