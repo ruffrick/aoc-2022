@@ -1,17 +1,15 @@
 use std::collections::VecDeque;
 
-type Item = u32;
-
 #[derive(Clone, Debug, Default)]
 struct Monkey {
     index: usize,
-    items: VecDeque<Item>,
+    items: VecDeque<u64>,
     operator: Operator,
     operand: Operand,
-    test: Item,
+    test: u64,
     if_true: usize,
     if_false: usize,
-    inspected_items: u32,
+    inspected_items: u64,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -35,7 +33,7 @@ impl TryFrom<&str> for Operator {
 
 #[derive(Clone, Debug, Default)]
 enum Operand {
-    Value(Item),
+    Value(u64),
     #[default]
     Old,
 }
@@ -54,9 +52,9 @@ impl TryFrom<&str> for Operand {
 #[derive(Debug)]
 enum Line {
     Monkey(usize),
-    StartingItems(VecDeque<Item>),
+    StartingItems(VecDeque<u64>),
     Operation(Operator, Operand),
-    Test(Item),
+    Test(u64),
     IfTrue(usize),
     IfFalse(usize),
 }
@@ -120,17 +118,21 @@ pub fn solve() {
         monkeys.push(monkey);
     }
 
-    let part_one = monkey_business(monkeys.clone());
-    let part_two = monkey_business(monkeys.clone());
+    let part_one = monkey_business(monkeys.clone(), 20, None);
+    let modulo = monkeys
+        .iter()
+        .map(|monkey| monkey.test)
+        .reduce(|acc, test| acc * test);
+    let part_two = monkey_business(monkeys, 10000, modulo);
     println!("Day 11\n\tPart One - {part_one}\n\tPart Two - {part_two}\n",);
 }
 
-fn monkey_business(mut monkeys: Vec<Monkey>) -> u32 {
+fn monkey_business(mut monkeys: Vec<Monkey>, rounds: u32, modulo: Option<u64>) -> u64 {
     let indices: Vec<(usize, usize, usize)> = monkeys
         .iter()
         .map(|monkey| (monkey.index, monkey.if_true, monkey.if_false))
         .collect();
-    for _ in 0..20 {
+    for _ in 0..rounds {
         for (index, if_true, if_false) in indices.iter() {
             if let Ok([monkey, if_true, if_false]) =
                 monkeys.get_many_mut([*index, *if_true, *if_false])
@@ -145,7 +147,11 @@ fn monkey_business(mut monkeys: Vec<Monkey>) -> u32 {
                         Operator::Multiply => item *= operand,
                         Operator::Add => item += operand,
                     }
-                    item /= 3;
+                    if let Some(modulo) = modulo {
+                        item %= modulo;
+                    } else {
+                        item /= 3;
+                    }
                     if item % monkey.test == 0 {
                         if_true.items.push_back(item);
                     } else {
