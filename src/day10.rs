@@ -15,13 +15,13 @@ pub fn solve() {
                 x += v;
             }
             "noop" => {
-                next_cycle(&mut cycle, &mut x, &mut part_one, &mut part_two);
+                next_cycle(&mut cycle, &x, &mut part_one, &mut part_two);
             }
             _ => {}
         }
     }
 
-    println!("Day 10\n\tPart One - {part_one}\n\tPart Two - \n{part_two}\n",);
+    println!("Day 10\n\tPart One - {part_one}\n\tPart Two - \n{part_two}",);
 }
 
 fn next_cycle(cycle: &mut i32, x: &i32, part_one: &mut i32, part_two: &mut String) {
