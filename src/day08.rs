@@ -20,6 +20,7 @@ pub fn solve() {
     println!("Day 8\n\tPart One - {part_one}\n\tPart Two - {part_two}\n");
 }
 
+#[allow(clippy::needless_range_loop)]
 fn check_visibility(trees: &Vec<Vec<u32>>, x: usize, y: usize) -> bool {
     let len = trees.len();
     let tree = trees[x][y];
@@ -47,6 +48,7 @@ fn check_visibility(trees: &Vec<Vec<u32>>, x: usize, y: usize) -> bool {
     left || right || top || bottom
 }
 
+#[allow(clippy::needless_range_loop)]
 fn calculate_score(trees: &Vec<Vec<u32>>, x: usize, y: usize) -> u32 {
     let len = trees.len();
     let tree = trees[x][y];
