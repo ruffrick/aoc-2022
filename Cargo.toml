@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.0.29", features = ["derive"] }
+regex = "1.7.0"
 rust-embed = "6.4.2"

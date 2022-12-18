@@ -1,6 +1,8 @@
 use std::collections::VecDeque;
 
-#[derive(Clone, Debug, Default)]
+use regex::Regex;
+
+#[derive(Clone, Debug)]
 struct Monkey {
     index: usize,
     items: VecDeque<u64>,
@@ -12,10 +14,9 @@ struct Monkey {
     inspected_items: u64,
 }
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 enum Operator {
     Multiply,
-    #[default]
     Add,
 }
 
@@ -31,10 +32,9 @@ impl TryFrom<&str> for Operator {
     }
 }
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 enum Operand {
     Value(u64),
-    #[default]
     Old,
 }
 
@@ -44,86 +44,35 @@ impl TryFrom<&str> for Operand {
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
             "old" => Ok(Self::Old),
-            val => Ok(Self::Value(val.parse().unwrap())),
+            _ => Ok(Self::Value(value.parse().unwrap())),
         }
-    }
-}
-
-#[derive(Debug)]
-enum Line {
-    Monkey(usize),
-    StartingItems(VecDeque<u64>),
-    Operation(Operator, Operand),
-    Test(u64),
-    IfTrue(usize),
-    IfFalse(usize),
-}
-
-impl TryFrom<&str> for Line {
-    type Error = ();
-
-    fn try_from(value: &str) -> Result<Self, Self::Error> {
-        return if let Some(value) = value
-            .strip_prefix("Monkey ")
-            .and_then(|value| value.strip_suffix(':'))
-        {
-            Ok(Line::Monkey(value.parse().unwrap()))
-        } else if let Some(value) = value.strip_prefix("  Starting items: ") {
-            Ok(Line::StartingItems(
-                value
-                    .split(", ")
-                    .map(|item| item.parse().unwrap())
-                    .collect(),
-            ))
-        } else if let Some(value) = value.strip_prefix("  Operation: new = old ") {
-            let value: Vec<&str> = value.split_whitespace().collect();
-            Ok(Line::Operation(
-                value[0].try_into().unwrap(),
-                value[1].try_into().unwrap(),
-            ))
-        } else if let Some(value) = value.strip_prefix("  Test: divisible by ") {
-            Ok(Line::Test(value.parse().unwrap()))
-        } else if let Some(value) = value.strip_prefix("    If true: throw to monkey ") {
-            Ok(Line::IfTrue(value.parse().unwrap()))
-        } else if let Some(value) = value.strip_prefix("    If false: throw to monkey ") {
-            Ok(Line::IfFalse(value.parse().unwrap()))
-        } else {
-            Err(())
-        };
     }
 }
 
 pub fn solve() {
     let input = crate::input("day11.txt");
-    let mut monkeys = Vec::new();
-    for monkey in input.split("\n\n") {
-        let lines: Vec<Line> = monkey
-            .lines()
-            .map(|line| line.try_into().unwrap())
-            .collect();
-        let mut monkey = Monkey::default();
-        for line in lines {
-            match line {
-                Line::Monkey(index) => monkey.index = index,
-                Line::StartingItems(items) => monkey.items = items,
-                Line::Operation(operator, operand) => {
-                    monkey.operator = operator;
-                    monkey.operand = operand;
-                }
-                Line::Test(test) => monkey.test = test,
-                Line::IfTrue(if_true) => monkey.if_true = if_true,
-                Line::IfFalse(if_false) => monkey.if_false = if_false,
-            }
-        }
-        monkeys.push(monkey);
-    }
+
+    let regex = Regex::new(r"Monkey (\d+):\n {2}Starting items: ([\d, ]+)\n {2}Operation: new = old ([+*]) (.+)\n {2}Test: divisible by (\d+)\n {4}If true: throw to monkey (\d+)\n {4}If false: throw to monkey (\d+)\n").unwrap();
+    let monkeys: Vec<Monkey> = regex
+        .captures_iter(input.as_str())
+        .map(|captures| Monkey {
+            index: captures[1].parse().unwrap(),
+            items: captures[2]
+                .split(", ")
+                .map(|num| num.parse().unwrap())
+                .collect(),
+            operator: captures[3].try_into().unwrap(),
+            operand: captures[4].try_into().unwrap(),
+            test: captures[5].parse().unwrap(),
+            if_true: captures[6].parse().unwrap(),
+            if_false: captures[7].parse().unwrap(),
+            inspected_items: 0,
+        })
+        .collect();
 
     let part_one = monkey_business(monkeys.clone(), 20, None);
-    let modulo = monkeys
-        .iter()
-        .map(|monkey| monkey.test)
-        .reduce(|acc, test| acc * test);
-    let part_two = monkey_business(monkeys, 10000, modulo);
+    let modulo = monkeys.iter().map(|monkey| monkey.test).product();
+    let part_two = monkey_business(monkeys, 10000, Some(modulo));
     println!("Day 11\n\tPart One - {part_one}\n\tPart Two - {part_two}\n",);
 }
 
@@ -168,6 +117,5 @@ fn monkey_business(mut monkeys: Vec<Monkey>, rounds: u32, modulo: Option<u64>) -
         .map(|monkey| monkey.inspected_items)
         .rev()
         .take(2)
-        .reduce(|acc, inspected_items| acc * inspected_items)
-        .unwrap()
+        .product()
 }
